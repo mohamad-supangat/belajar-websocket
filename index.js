@@ -1,6 +1,14 @@
 const app = require("express")();
 const http = require("http").Server(app);
 const io = require("socket.io")(http);
+const cors = require("cors");
+const whitelist = ["https://www.google.com/"];
+
+app.use(
+  cors({
+    origin: whitelist,
+  })
+);
 
 app.get("/", function (req, res) {
   res.sendfile("index.html");
@@ -19,9 +27,9 @@ io.on("connection", function (socket) {
   });
 });
 
-app.route("/test").get(function (req, res) {
+app.get("/test", cors(), function (req, res) {
   io.emit("new_message", "world");
-  res.end();
+  res.send(true);
 });
 
 http.listen(3000, function () {
