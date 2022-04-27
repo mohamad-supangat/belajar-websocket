@@ -1,6 +1,13 @@
 const app = require("express")();
 const http = require("http").Server(app);
-const io = require("socket.io")(http);
+const io = require("socket.io")(http, {
+  cors: {
+    origin: "*",
+    methods: ["GET", "POST"],
+  },
+  transports: ["polling"],
+});
+
 const cors = require("cors");
 const whitelist = ["https://www.google.com/"];
 
@@ -32,6 +39,6 @@ app.get("/test", cors(), function (req, res) {
   res.send(true);
 });
 
-http.listen(3000, function () {
-  console.log("listening on *:3000");
+http.listen(8088, function () {
+  console.log("listening on *:8088");
 });
