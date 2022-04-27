@@ -40,6 +40,6 @@ app.get("/test", function (req, res) {
   res.send(true);
 });
 
-http.listen(8088, function () {
-  console.log("listening on *:8088");
+http.listen(3000, function () {
+  console.log("listening on *:3000");
 });
